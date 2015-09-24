@@ -111,7 +111,7 @@ cm$overall['Accuracy']
 
 ```
 ##  Accuracy 
-## 0.9305013
+## 0.8278675
 ```
 
 ```r
@@ -124,7 +124,7 @@ cm2$overall['Accuracy']
 
 ```
 ##  Accuracy 
-## 0.9969414
+## 0.9966015
 ```
 
 ```r
@@ -137,13 +137,16 @@ cm3$overall['Accuracy']
 
 ```
 ##  Accuracy 
-## 0.7563297
+## 0.7570093
 ```
 #Expected error rate and accuracy rates
 Comparing accuracy results from all these models the random forest is the most accurate with a 99.75% accuracy. The RPart model is second with 90.38% and Naive Bayes the worst with 76.89%. Due to this huge accuracy on the random forest, I have decided to just use that model and not create a combination model to increase the accuracy.
 
-So the my expected error rate applying the random forest model is 0.25%
+So the expected error rate applying the random forest model is 0.25%.
+#Applying the model to the test data
+The random forest model is now applied to the test data to predict what each of the twenty lines in terms of the category on how well the exercise were done.
 
+I then joined the prediction to the test data into a new variable called predDF.
 
 ```r
 #Predict RF model on the testing set
@@ -153,6 +156,8 @@ pred1 <- predict(rfModel,newdata = testing)
 predDF <- cbind(classe = pred1,testing)
 ```
 
+##Summarise prediction results
+In order to really analyse the prediction, I dropped all the varaibles except for the user and class and added a count to this to plot.
 
 ```r
 #Rework results to plot
@@ -174,7 +179,7 @@ plot(x2$classe, col="red", main="Fig4 - RF applied on test set", xlab="Classe", 
 
 ![](MachineLearning_files/figure-html/unnamed-chunk-9-1.png) 
 
-#Comparisons
+##Comparisons
 In the graphs, the main aim were to show how accurate the model is in comparison to looking at the outcome variable in all the data where only the empty columns were removed (Fig1), then to the training set just after the near zero variables were excluded. fig 3 show how the model shows on the validation data and lastly in Fig 4, the RF model applied to the test set.
 
 Notice the frequency reduction from graph to graph, however, the pattern remains similar. Just in figure 4, the E classe shows higher, but it is actually higher in all other graphs, just not as visible due to the scale difference.
